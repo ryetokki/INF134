@@ -13,8 +13,9 @@ class Button extends Widget{
     private _text_x: number;
     private defaultText: string= "Button";
     private defaultFontSize: number = 18;
-    private defaultWidth: number = 80;
-    private defaultHeight: number = 30;
+    private defaultWidth: number = 100;
+    private defaultHeight: number = 25;
+    private clickHandler: (() => void) | null = null;
 
     constructor(parent:Window){
         super(parent);
@@ -32,6 +33,35 @@ class Button extends Widget{
         // prevent text selection
         this.selectable = false;
     }
+
+    // get and set the text on the button
+    get label(): string {
+        return this._input;
+    }
+
+    set label(value: string) {
+        this._input = value; 
+        this.update();
+    }
+
+    // get and set the height and width of the button
+    get buttonHeight(): number {
+        return this.height;
+    }
+
+    set buttonHeight(value: number) {
+        this.height = value; 
+        this.update();
+    } 
+
+    get buttonWidth(): number {
+        return this.width;
+    }
+
+    set buttonWidth(value: number) {
+        this.width = value; 
+        this.update();
+    } 
 
     set fontSize(size:number){
         this._fontSize= size;
@@ -63,6 +93,11 @@ class Button extends Widget{
         // for this widget, we want to know when the group or rect objects
         // receive events
         this.registerEvent(eventrect);
+        eventrect.on('click', () => {
+            if (this.clickHandler) {
+                this.clickHandler(); // Call the registered function
+            }
+        });
     }
 
     override update(): void {
@@ -84,21 +119,27 @@ class Button extends Widget{
     }
 
     //TODO: implement the onClick event using a callback passed as a parameter
-    onClick(/*TODO: add callback parameter*/):void{}
+    onClick(callback: () => void): void {
+        this.clickHandler = callback;
+    }
 
     
     //TODO: give the states something to do! Use these methods to control the visual appearance of your
     //widget
     idleupState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('white');
+        this._text.text(this.defaultText);
     }
     idledownState(): void {
         throw new Error("Method not implemented.");
     }
     pressedState(): void {
-        throw new Error("Method not implemented.");
+        this._rect.fill('gray');
+        this._text.text('Pressed');
     }
     hoverState(): void {
+        this._rect.fill('lightgray');
+        this._text.text('Hovering');
         throw new Error("Method not implemented.");
     }
     hoverPressedState(): void {
