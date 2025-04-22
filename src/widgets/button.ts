@@ -81,7 +81,7 @@ class Button extends Widget{
     render(): void {
         this._group = (this.parent as Window).window.group();
         this._rect = this._group.rect(this.width, this.height);
-        this._rect.stroke("black");
+        this._rect.stroke({ color: 'black', width: 2 });;
         this._text = this._group.text(this._input);
         // Set the outer svg element 
         this.outerSvg = this._group;
@@ -131,28 +131,22 @@ class Button extends Widget{
         this._text.text(this.defaultText);
     }
     idledownState(): void {
-        throw new Error("Method not implemented.");
     }
     pressedState(): void {
-        this._rect.fill('gray');
+        this._rect.fill('pink');
         this._text.text('Pressed');
     }
     hoverState(): void {
-        this._rect.fill('lightgray');
+        this._rect.fill('lightpink');
         this._text.text('Hovering');
-        throw new Error("Method not implemented.");
     }
     hoverPressedState(): void {
-        throw new Error("Method not implemented.");
     }
     pressedoutState(): void {
-        throw new Error("Method not implemented.");
     }
     moveState(): void {
-        throw new Error("Method not implemented.");
     }
     keyupState(keyEvent?: KeyboardEvent): void {
-        throw new Error("Method not implemented.");
     }
 }
 

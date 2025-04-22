@@ -1,5 +1,9 @@
 import {Window} from "./core/ui"
 import {Button} from "./widgets/button"
+import {checkBox} from "./widgets/checkbox";
+import {radioButton, radioGroup} from "./widgets/radioButton";
+import { scrollBar } from "./widgets/scrollBar";
+import { progressBar } from "./widgets/progressBar";
 import {Heading} from "./widgets/heading"
 
 
@@ -19,3 +23,26 @@ btn.move(12, 50)
 btn.onClick(() => {
     lbl1.text = "Button was clicked!";
 });
+
+let cb = new checkBox(w);
+cb.move(12, 100)
+
+let rb1 = new radioButton(w, '1');
+rb1.move(12, 150)
+
+let rb2 = new radioButton(w, '2');
+rb2.move(12, 200)
+
+let rb3 = new radioButton(w, '3');
+rb3.move(12, 250)
+
+let rg = new radioGroup()
+rg.add(rb1);
+rg.add(rb2);
+rg.add(rb3);
+
+let sb = new scrollBar(w);
+sb.move(12, 300)
+
+let pb = new progressBar(w);
+pb.move(12, 500)
